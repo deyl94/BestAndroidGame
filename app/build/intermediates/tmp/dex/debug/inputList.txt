@@ -1,0 +1,5 @@
+C:\Users\roland\Desktop\BestGame\app\build\intermediates\classes\debug
+C:\Users\roland\Desktop\BestGame\app\build\intermediates\pre-dexed\debug\support-annotations-21.0.3-5831cc22aa3a20a961cd898f01e7caf940db2f15.jar
+C:\Users\roland\Desktop\BestGame\app\build\intermediates\pre-dexed\debug\internal_impl-21.0.3-b922100476dead10905c38984fc8a25c1ada4c0a.jar
+C:\Users\roland\Desktop\BestGame\app\build\intermediates\pre-dexed\debug\classes-4b2e449213928be2ebad92fb9c8a2ac5fd124df8.jar
+C:\Users\roland\Desktop\BestGame\app\build\intermediates\pre-dexed\debug\classes-0d010f6c03cbb55dd25f25bee9ab1e7ae7053064.jar
