@@ -329,53 +329,70 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback
 		 */
 		private void drawControls(Canvas canvas)
 		{
-			canvas.drawBitmap(mCtrlUpArrow.getBitmap(), mCtrlUpArrow.getX(), mCtrlUpArrow.getY() + 10, null);
-			canvas.drawBitmap(mCtrlDownArrow.getBitmap(), mCtrlDownArrow.getX(), mCtrlDownArrow.getY() + 10, null);
-			canvas.drawBitmap(mCtrlLeftArrow.getBitmap(), mCtrlLeftArrow.getX(), mCtrlLeftArrow.getY() + 10, null);
-			canvas.drawBitmap(mCtrlRightArrow.getBitmap(), mCtrlRightArrow.getX(), mCtrlRightArrow.getY() + 10, null);
+			canvas.drawBitmap(mCtrlUpArrow.getBitmap(), mCtrlUpArrow.getX(), mCtrlUpArrow.getY(), null);
+			canvas.drawBitmap(mCtrlDownArrow.getBitmap(), mCtrlDownArrow.getX(), mCtrlDownArrow.getY(), null);
+			canvas.drawBitmap(mCtrlLeftArrow.getBitmap(), mCtrlLeftArrow.getX(), mCtrlLeftArrow.getY(), null);
+			canvas.drawBitmap(mCtrlRightArrow.getBitmap(), mCtrlRightArrow.getX(), mCtrlRightArrow.getY(), null);
 		}
 
 		/**
 		 * Updates the direction, position and state of the player unit.
 		 */
-		private void updatePlayerUnit()
-		{
-			GameTile collisionTile = null;
+        private void updatePlayerUnit()
+        {
 
-			if (mPlayerMoving)
-			{
-				int differenceX = 0;
-				int differenceY = 0;
-				int newX = mPlayerUnit.getX();
-				int newY = mPlayerUnit.getY();
+            GameTile collisionTile = null;
 
-				if (mPlayerHorizontalDirection != 0)
-				{
-					differenceX = (mPlayerHorizontalDirection == DIRECTION_RIGHT) ? getPixelValueForDensity(PlayerUnit.SPEED) : getPixelValueForDensity(-PlayerUnit.SPEED);
-					newX = (mPlayerUnit.getX() + differenceX);
-				}
+            if (mPlayerHorizontalDirection != 0)
+            {
+                mPlayerUnit.setmSpeedX((mPlayerHorizontalDirection == DIRECTION_RIGHT) ?
+                        PlayerUnit.SPEED :
+                        -PlayerUnit.SPEED);
 
-				if (mPlayerVerticalDirection != 0)
-				{
-					differenceY = (mPlayerVerticalDirection == DIRECTION_DOWN) ? getPixelValueForDensity(PlayerUnit.SPEED) : getPixelValueForDensity(-PlayerUnit.SPEED);
-					newY = (mPlayerUnit.getY() + differenceY);
-				}
+            } else {
 
-				collisionTile = getCollisionTile(newX, newY, mPlayerUnit.getWidth(), mPlayerUnit .getHeight());
+                if (mPlayerUnit.getmSpeedX() != 0) {
+                    mPlayerUnit.setmSpeedX(
+                            mPlayerUnit.getmSpeedX() +
+                                    (mPlayerUnit.getmSpeedX() > 0 ? -PlayerUnit.INERTIA :
+                                            PlayerUnit.INERTIA));
+                }
+            }
 
-				if ((collisionTile != null)
-						&& collisionTile.isBlockerTile())
-				{
-					handleTileCollision(collisionTile);
-				} else
-				{
-					mPlayerUnit.setX(newX);
-					mPlayerUnit.setY(newY);
-				}
-			}
-		}
+            if (mPlayerVerticalDirection != 0)
+            {
+                mPlayerUnit.setmSpeedY((mPlayerVerticalDirection == DIRECTION_DOWN) ?
+                        getPixelValueForDensity(PlayerUnit.SPEED) :
+                        getPixelValueForDensity(-PlayerUnit.SPEED));
 
-		/**
+            } else {
+                if (mPlayerUnit.getmSpeedY() != 0) {
+                    mPlayerUnit.setmSpeedY(mPlayerUnit.getmSpeedY() +
+                            (mPlayerUnit.getmSpeedY() > 0 ? -PlayerUnit.INERTIA :
+                                    PlayerUnit.INERTIA));
+                }
+            }
+
+            int newX = mPlayerUnit.getX() + mPlayerUnit.getmSpeedX();
+            int newY = mPlayerUnit.getY() + mPlayerUnit.getmSpeedY();
+
+            mPlayerUnit.setmSpeedX(mPlayerUnit.getmSpeedX() + mPlayerUnit.getmAcsX());
+            collisionTile = getCollisionTile(newX, newY, mPlayerUnit.getWidth(), mPlayerUnit .getHeight());
+
+            if ((collisionTile != null)
+                    && collisionTile.isBlockerTile())
+            {
+                handleTileCollision(collisionTile);
+            } else
+            {
+
+                mPlayerUnit.setX(newX);
+                mPlayerUnit.setY(newY);
+            }
+        }
+
+
+        /**
 		 * Detects a collision between a game unit and a game tile,
 		 * returns the collision tile if available.
 		 * 

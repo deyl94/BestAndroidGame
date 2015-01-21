@@ -11,13 +11,20 @@ import android.content.Context;
  */
 public class PlayerUnit extends GameUnit
 {
-	public static final int SPEED = 3;
-	
+    public static final int SPEED = 8;
+    public static final int INERTIA = 1;
+
 	Context mContext;
-	
+
 	private int mUnmodifiedX = 0;
-	private int mUnmodifiedY = 0;
-	
+    private int mUnmodifiedY = 0;
+
+    private int mSpeedX = 0;
+    private int mSpeedY = 0;
+
+    private int mAcsX = 0;
+    private int mAcsY = 0;
+
 	public PlayerUnit(Context context, int drawable)
 	{
 		super(context, drawable);
@@ -43,4 +50,40 @@ public class PlayerUnit extends GameUnit
 	{
 		this.mUnmodifiedY = unmodifiedY;
 	}
+
+
+    public int getmSpeedX() {
+        return mSpeedX;
+    }
+
+    public void setmSpeedX(int mSpeedX) {
+        this.mSpeedX = mSpeedX;
+    }
+
+    public int getmSpeedY() {
+        return mSpeedY;
+    }
+
+    public void setmSpeedY(int mSpeedY) {
+        this.mSpeedY = mSpeedY;
+    }
+
+    public int getmAcsX() {
+        return mAcsX;
+    }
+
+    public void setmAcsX(int mAcsX) {
+        this.mAcsX = mAcsX;
+    }
+
+    public int getmAcsY() {
+        return mAcsY;
+    }
+
+    public void setmAcsY(int mAcsY) {
+        this.mAcsY = mAcsY;
+    }
+
 }
+
+
