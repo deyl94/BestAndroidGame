@@ -20,7 +20,7 @@ import com.bestgame.ru.bestgame.R;
  * the game.
  * 
  * @author Dan Ruscoe (ruscoe.org)
- * @version 1.0olololo
+ * @version 1.0
  */
 public class Play extends Activity
 {

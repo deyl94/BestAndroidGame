@@ -52,6 +52,9 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback
 	private static final int DIRECTION_LEFT = 3;
 	private static final int DIRECTION_RIGHT = 4;
 
+    private static final int GAME_LOOP = 30;
+    private long prevTime = 0;
+
 	public static final int STATE_RUNNING = 1;
 	public static final int STATE_PAUSED = 2;
 
@@ -183,8 +186,20 @@ public class GameView extends SurfaceView implements SurfaceHolder.Callback
 		@Override
 		public void run()
 		{
-			while (mGameRun)
+
+            long now = System.currentTimeMillis();
+            long elapsedTime = now - prevTime;
+
+            if (elapsedTime < GAME_LOOP)
+            {
+                return;
+            }
+
+            prevTime = now;
+
+            while (mGameRun)
 			{
+
 				Canvas c = null;
 				try
 				{
